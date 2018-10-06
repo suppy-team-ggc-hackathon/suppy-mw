@@ -1,6 +1,7 @@
 {
   "port": 1344,
   "https": false,
+  "log_level": "info",
   "sap_api": {
     "key": "hzXszpRBRcGRZgm74JG7kSQjKb8Vdu6UASG6rpmdBTN5ycYgC6QZUX7TdwnWHReq",
     "url": "https://maas-proxy.cfapps.eu10.hana.ondemand.com/7e0d01a0-800f-4c39-9d7b-a98840602fc1/rpc"

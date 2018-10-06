@@ -1,8 +1,10 @@
 import hex2ascii from 'hex2ascii'
 import Product from './Product'
 import log4js from "log4js";
+import config from "../../config";
 
 const log = log4js.getLogger('Tx')
+log.level = config.log_level
 
 export default class Tx {
 
@@ -19,9 +21,9 @@ export default class Tx {
     }
 
     static fromSAPTX(sapTx) {
-        log.info('fromSAPTX >>> sapTx RAW >>> ', sapTx.data)
+        log.debug('fromSAPTX >>> sapTx RAW >>> ', sapTx.data)
         const sapTxDataDecoded = hex2ascii(sapTx.data)
-        log.info('fromSAPTX >>> sapTxData DECODED >>> ', sapTxDataDecoded)
+        log.debug('fromSAPTX >>> sapTxData DECODED >>> ', sapTxDataDecoded)
 
         let result
 

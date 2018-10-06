@@ -4,6 +4,7 @@ import config from './../../config'
 import uuid from 'uuid/v1'
 
 const log = log4js.getLogger('request')
+log.level = config.log_level
 
 const toHex = (data) => Buffer.from(JSON.stringify(data), 'utf8').toString('hex')
 
@@ -35,11 +36,11 @@ const buildSapDataToRetrieveByKey = (key) => ({
 export default {
     post: (data) => {
 
-        log.info('POST data >>> ', data)
+        log.debug('POST data >>> ', data)
 
         const sapData = buildSapDataToPOST(data)
 
-        log.info('POST sapData >>> ', sapData)
+        log.debug('POST sapData >>> ', sapData)
 
         return new Promise(function(resolve, reject) {
             request({
@@ -54,7 +55,7 @@ export default {
                     log.error('POST sapData RESPONSE ERROR >>> ', err)
                     reject(err)
                 } else {
-                    log.info('POST sapData RESPONSE SUCCESS >>> ', data)
+                    log.debug('POST sapData RESPONSE SUCCESS >>> ', data)
                     resolve(data)
                 }
             })
@@ -65,7 +66,7 @@ export default {
 
         const sapData = buildSapDataToLIST()
 
-        log.info('LIST sapData >>> ', sapData)
+        log.debug('LIST sapData >>> ', sapData)
 
         return new Promise(function(resolve, reject) {
             request({
@@ -80,7 +81,7 @@ export default {
                     log.error('LIST sapData RESPONSE ERROR >>> ', err)
                     reject(err)
                 } else {
-                    log.info('LIST sapData RESPONSE SUCCESS >>> ', data)
+                    log.debug('LIST sapData RESPONSE SUCCESS >>> ', data)
                     resolve(data)
                 }
             })
@@ -90,7 +91,7 @@ export default {
     get_by_key: (key) => {
 
         const sapData = buildSapDataToRetrieveByKey(key)
-        log.info('GET_BY_KEY sapData >>>', sapData)
+        log.debug('GET_BY_KEY sapData >>>', sapData)
 
         return new Promise(function(resolve, reject) {
             request({
@@ -105,7 +106,7 @@ export default {
                     log.error('LIST sapData RESPONSE ERROR >>> ', err)
                     reject(err)
                 } else {
-                    log.info('LIST sapData RESPONSE SUCCESS >>> ', data)
+                    log.debug('LIST sapData RESPONSE SUCCESS >>> ', data)
                     resolve(data)
                 }
             })
