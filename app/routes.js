@@ -36,14 +36,14 @@ export default {
 
                 const decodedTxs = result.result.map((it) => {
                     log.debug('Tx LIST ITEM >>> RAW Tx >>> ', it)
-                    return Tx.fromSAPTX(it)
+                    return Tx.fromSAPTX(it).toJson()
                 })
 
                 log.debug('Tx LIST >>> decodedTxs >>> ', decodedTxs)
 
                 res.status(200).json({
                     ok: true,
-                    decodedTxs
+                    result: decodedTxs
                 })
             }).catch((err) => {
                 res.status(500).json(err)
@@ -55,7 +55,7 @@ export default {
                 
                 const decodedTxs = result.result.map((it) => {
                     log.debug('Tx LIST ITEM >>> RAW Tx >>> ', it)
-                    return Tx.fromSAPTX(it)
+                    return Tx.fromSAPTX(it).toJson()
                 })[0]
 
 
@@ -63,7 +63,7 @@ export default {
 
                 res.status(200).json({
                     ok: true,
-                    decodedTxs
+                    result: decodedTxs
                 })
             }).catch((err) => {
                 res.status(500).json(err)

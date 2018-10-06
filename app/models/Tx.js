@@ -29,6 +29,7 @@ export default class Tx {
 
         try {
             const data = JSON.parse(sapTxDataDecoded)
+            data.sapKey = sapTx.key
             result = new Tx(data)
         } catch (e) {
             log.warn('fromSAPTX >>> invalid JSON >>> ', sapTxDataDecoded)
@@ -36,6 +37,10 @@ export default class Tx {
         }
 
         return result
+    }
+
+    getSapKey() {
+        return this._data.sapKey
     }
 
     getPrevTxIds() {
