@@ -49,5 +49,26 @@ export default {
                 res.status(500).json(err)
             })
         })
+
+        app.get('/tx/:id', (req, res) => {
+            request.get_by_key(req.params.id.toString()).then((result) => {
+                
+                const decodedTxs = result.result.map((it) => {
+                    log.info('Tx LIST ITEM >>> RAW Tx >>> ', it)
+                    return Tx.fromSAPTX(it)
+                })[0]
+
+
+                log.info('Tx GET_KEY_BY_ELEMENT >>> decodedTxs >>> ', decodedTxs)
+
+                res.status(200).json({
+                    ok: true,
+                    decodedTxs
+                })
+            }).catch((err) => {
+                res.status(500).json(err)
+            })
+        })
     }
+
 }
