@@ -11,8 +11,9 @@
   },
   "main": "app.js",
   "scripts": {
-    "start": "NODE_ENV=dev babel-node app/app.js --presets es2015,stage-2",
-    "test": "NODE_ENV=test node_modules/.bin/mocha --recursive"
+    "start": "npm run build && NODE_ENV=dev node dist/app/app.js",
+    "test": "NODE_ENV=test node_modules/.bin/mocha --recursive",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files"
   },
   "dependencies": {
     "body-parser": "*",
@@ -22,6 +23,7 @@
     "log4js": "*",
     "moment": "*",
     "request": "^2.88.0",
+    "rimraf": "^2.6.2",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
