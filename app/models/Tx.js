@@ -1,19 +1,23 @@
 import hex2ascii from 'hex2ascii'
 import Product from './Product'
 import log4js from "log4js";
-import config from "../../config";
+import config from "./../../config";
 
 const log = log4js.getLogger('Tx')
 log.level = config.log_level
 
 export default class Tx {
 
-    constructor(data) {
+    constructor(data = {}) {
         this._data = data
     }
 
     toJson() {
         return this._data
+    }
+
+    isValid() {
+        return this.getSapKey() && this.getDate()
     }
 
     toString() {
@@ -33,10 +37,11 @@ export default class Tx {
             result = new Tx(data)
         } catch (e) {
             log.warn('fromSAPTX >>> invalid JSON >>> ', sapTxDataDecoded)
-            result = sapTxDataDecoded
+            result = new Tx()
         }
 
-        return result
+        if (result.isValid()) return result
+        else return new Tx()
     }
 
     getSapKey() {
@@ -53,8 +58,8 @@ export default class Tx {
 
     getLocation() {
         return {
-            lat: this._data.location.lat,
-            lng: this._data.location.lng
+            lat: this._data.location ? this._data.location.lat : null,
+            lng: this._data.location ? this._data.location.lng : null
         }
     }
 

@@ -15,11 +15,7 @@ export default {
 
         app.post('/tx', (req, res) => {
 
-            log.debug('req.body >>> ', req.body)
-
             const tx = new Tx(req.body)
-
-            log.debug('tx >>> ', tx)
 
             request.post(tx.toJson()).then((result) => {
                 res.status(200).json({
@@ -35,17 +31,16 @@ export default {
             request.list().then((result) => {
 
                 const decodedTxs = result.result.map((it) => {
-                    log.debug('Tx LIST ITEM >>> RAW Tx >>> ', it)
                     return Tx.fromSAPTX(it).toJson()
                 })
 
-                log.debug('Tx LIST >>> decodedTxs >>> ', decodedTxs)
-
                 res.status(200).json({
                     ok: true,
-                    result: decodedTxs
+                    result: decodedTxs,
+                    length: decodedTxs.length
                 })
             }).catch((err) => {
+                log.error('LIST >>> ', err)
                 res.status(500).json(err)
             })
         })
@@ -54,18 +49,15 @@ export default {
             request.get_by_key(req.params.id.toString()).then((result) => {
                 
                 const decodedTxs = result.result.map((it) => {
-                    log.debug('Tx LIST ITEM >>> RAW Tx >>> ', it)
                     return Tx.fromSAPTX(it).toJson()
                 })[0]
-
-
-                log.debug('Tx GET_KEY_BY_ELEMENT >>> decodedTxs >>> ', decodedTxs)
 
                 res.status(200).json({
                     ok: true,
                     result: decodedTxs
                 })
             }).catch((err) => {
+                log.error('LIST >>> ', err)
                 res.status(500).json(err)
             })
         })

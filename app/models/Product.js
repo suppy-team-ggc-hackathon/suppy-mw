@@ -1,6 +1,6 @@
 export default class Product {
 
-    constructor(data) {
+    constructor(data = {}) {
         this._data = data
     }
 

@@ -11,7 +11,7 @@ const toHex = (data) => Buffer.from(JSON.stringify(data), 'utf8').toString('hex'
 const buildSapDataToPOST = (data) => ({
     "method": "publish",
     "params": [
-        "suppy_stream",
+        config.sap_api.stream,
         uuid(), // tx key
         toHex(data)
     ]
@@ -20,15 +20,17 @@ const buildSapDataToPOST = (data) => ({
 const buildSapDataToLIST = () => ({
     "method": "liststreamitems",
     "params": [
-        "suppy_stream"
+        config.sap_api.stream,
+        false, // verbose?
+        1000 // count
     ]
 })
 
-const buildSapDataToRetrieveByKey = (key) => ({
+const buildSapDataToRetrieveByKey = (sapKey) => ({
     "method": "liststreamkeyitems",
     "params": [
-        "suppy_stream",
-        key
+        config.sap_api.stream,
+        sapKey
     ]
 })
 
@@ -36,11 +38,7 @@ const buildSapDataToRetrieveByKey = (key) => ({
 export default {
     post: (data) => {
 
-        log.debug('POST data >>> ', data)
-
         const sapData = buildSapDataToPOST(data)
-
-        log.debug('POST sapData >>> ', sapData)
 
         return new Promise(function(resolve, reject) {
             request({
@@ -81,16 +79,15 @@ export default {
                     log.error('LIST sapData RESPONSE ERROR >>> ', err)
                     reject(err)
                 } else {
-                    log.debug('LIST sapData RESPONSE SUCCESS >>> ', data)
                     resolve(data)
                 }
             })
         })
     },
 
-    get_by_key: (key) => {
+    get_by_key: (sapKey) => {
 
-        const sapData = buildSapDataToRetrieveByKey(key)
+        const sapData = buildSapDataToRetrieveByKey(sapKey)
         log.debug('GET_BY_KEY sapData >>>', sapData)
 
         return new Promise(function(resolve, reject) {
