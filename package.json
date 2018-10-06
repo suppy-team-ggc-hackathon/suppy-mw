@@ -20,6 +20,7 @@
     "cors": "*",
     "express": "*",
     "hex2ascii": "0.0.3",
+    "lodash": "^4.17.11",
     "log4js": "*",
     "moment": "*",
     "request": "^2.88.0",

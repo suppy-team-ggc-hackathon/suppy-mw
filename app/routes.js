@@ -1,4 +1,5 @@
 import log4js from 'log4js'
+import _ from 'lodash'
 import Tx from './models/Tx'
 import request from './helpers/request'
 import config from './../config'
@@ -33,14 +34,14 @@ export default {
         app.get('/tx', (req, res) => {
             request.list().then((result) => {
 
-                const decodedTxs = result.result.map((it) => {
-                    return Tx.fromSAPTX(it).toJson()
-                })
+                let txs = result.result.map((it) => Tx.fromSAPTX(it))
+
+                txs = _.sortBy(txs, (tx) => tx.getDate()).map((tx) => tx.toJson())
 
                 res.status(200).json({
                     ok: true,
-                    result: decodedTxs,
-                    length: decodedTxs.length
+                    result: txs,
+                    length: txs.length
                 })
             }).catch((err) => {
                 log.error('LIST >>> ', err)
