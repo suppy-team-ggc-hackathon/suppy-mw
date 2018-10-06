@@ -1,4 +1,6 @@
 import log4js from 'log4js'
+import Tx from './models/Tx'
+import request from './helpers/request'
 
 export default {
     configure: function (app) {
@@ -11,12 +13,20 @@ export default {
 
         app.post('/tx', (req, res) => {
 
-            res.status(200).json({
-                ok: true,
-                result: req.body
-            })
+            log.info('req.body >>> ', req.body)
 
-            // res.status(500).json(err)
+            const tx = new Tx(req.body)
+
+            log.info('tx >>> ', tx)
+
+            request.post(tx.toJson()).then((result) => {
+                res.status(200).json({
+                    ok: true,
+                    result
+                })
+            }).catch((err) => {
+                res.status(500).json(err)
+            })
         })
 
         app.get('/tx', (req, res) => {

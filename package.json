@@ -19,7 +19,9 @@
     "cors": "*",
     "express": "*",
     "log4js": "*",
-    "moment": "*"
+    "moment": "*",
+    "request": "^2.88.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

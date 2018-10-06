@@ -1,0 +1,4 @@
+export default {
+    DRIVER,
+    MANUFACTURER
+}
