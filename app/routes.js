@@ -81,6 +81,52 @@ export default {
                 res.status(500).json(err)
             })
         })
+
+        app.get('/end-product-by-id', (req, res) => {
+            request.get_by_key(req.params.id.toString()).then((result) => {
+
+                const decodedTxs = result.result.map((it) => {
+                    return Tx.fromSAPTX(it).toJson()
+                })[0]
+
+                log.info(decodedTxs.getPrevTxIds())
+
+                var prevTxIds = decodedTxs.getPrevTxIds()
+
+                res.status(200).json({
+                    ok: true,
+                    result: prevTxIds
+                })
+            }).catch((err) => {
+                log.error('LIST >>> ', err)
+                res.status(500).json(err)
+            })
+
+        })
+
+        app.get('/origin-and-location', (req, res) => {
+            request.get_by_key(req.params.id.toString()).then((result) => {
+
+                const decodedTxs = result.result.map((it) => {
+                    return Tx.fromSAPTX(it).toJson()
+                })[0]
+
+                log.info(decodedTxs.getPrevTxIds())
+
+                var prevTxIds = decodedTxs.getPrevTxIds()
+
+                res.status(200).json({
+                    ok: true,
+                    result: prevTxIds
+                })
+            }).catch((err) => {
+                log.error('LIST >>> ', err)
+                res.status(500).json(err)
+            })
+
+        })
+
+
     }
 
 }
