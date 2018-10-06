@@ -5,6 +5,7 @@
     "lat": 42.42,
     "lng": 53.55
   },
+  "prev_tx_ids": ["04f85a40-c97d-11e8-8fa8-e1c8ebd52c18"],
   "supplier_id": "joe-the-driver",
   "supplier_type": "DRIVER",
   "product_data": {
