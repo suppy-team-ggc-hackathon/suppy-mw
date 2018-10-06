@@ -5,6 +5,7 @@
     "lng": 53.55
   },
   "supplier_id": "joe-the-driver",
+  "supplier_type": "DRIVER",
   "product_data": {
     "title": "bunch of bananas"
   },

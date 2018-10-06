@@ -10,6 +10,7 @@ export default class Tx {
 
     constructor(data = {}) {
         this._data = data
+        this._data.product_data = new Product(data.product_data).toJson()
     }
 
     toJson() {
@@ -25,9 +26,11 @@ export default class Tx {
     }
 
     static fromSAPTX(sapTx) {
-        log.debug('fromSAPTX >>> sapTx RAW >>> ', sapTx.data)
+
+
         const sapTxDataDecoded = hex2ascii(sapTx.data)
-        log.debug('fromSAPTX >>> sapTxData DECODED >>> ', sapTxDataDecoded)
+
+        log.warn('fromSAPTX >>> DECODED >>> ', sapTxDataDecoded)
 
         let result
 
@@ -39,6 +42,8 @@ export default class Tx {
             log.warn('fromSAPTX >>> invalid JSON >>> ', sapTxDataDecoded)
             result = new Tx()
         }
+
+        log.warn('fromSAPTX >>> RESULT >>> ', result)
 
         if (result.isValid()) return result
         else return new Tx()
@@ -72,7 +77,7 @@ export default class Tx {
     }
 
     getProduct() {
-        return new Product(this._data.product_data)
+        return this._data.product_data
     }
 
     getCO2() {

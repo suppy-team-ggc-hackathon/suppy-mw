@@ -1,6 +1,9 @@
 import ProductType from "./ProductType";
 import log4js from 'log4js';
+
 const log = log4js.getLogger('product');
+
+const UNDEFINED = "UNDEFINED"
 
 export default class Product {
 
@@ -11,22 +14,16 @@ export default class Product {
         this._data.img = ProductType[this._data.type]
     }
 
-    retrieveDatatype(title){
-        log.info('retrieveDATATYPE we are in')
-        var datatype
+    toJson() {
+        return this._data
+    }
 
-        Object.keys(ProductType).forEach(function(type) {
-            log.info('This is the Type Hype!', type)
-            log.info(title)
-            if (title.includes(type)){
-                log.info(type)
-                datatype = type;
-                return datatype
-            }
-        });
-        datatype = "UNDEFINED"
-        return datatype
-
+    retrieveDatatype(title) {
+        if (!title) return UNDEFINED
+        const foundType = Object.keys(ProductType).find((type) => {
+            return (title.toUpperCase().indexOf(type) > -1)
+        })
+        return foundType || UNDEFINED
     }
 
     getType() {

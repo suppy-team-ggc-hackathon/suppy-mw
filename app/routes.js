@@ -13,7 +13,9 @@ export default {
          * Open Routes
          */
 
-        app.post('/tx', (req, res) => {
+        app.post('/tx', (req, res, next) => {
+
+            log.info("POST >>> ", req.body)
 
             const tx = new Tx(req.body)
 
@@ -23,6 +25,7 @@ export default {
                     result
                 })
             }).catch((err) => {
+                log.error('POST >>> ', err)
                 res.status(500).json(err)
             })
         })
