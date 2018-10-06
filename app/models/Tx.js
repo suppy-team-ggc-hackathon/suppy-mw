@@ -1,4 +1,8 @@
+import hex2ascii from 'hex2ascii'
 import Product from './Product'
+import log4js from "log4js";
+
+const log = log4js.getLogger('Tx')
 
 export default class Tx {
 
@@ -12,6 +16,24 @@ export default class Tx {
 
     toString() {
         return JSON.stringify(this._data)
+    }
+
+    static fromSAPTX(sapTx) {
+        log.info('fromSAPTX >>> sapTx RAW >>> ', sapTx.data)
+        const sapTxDataDecoded = hex2ascii(sapTx.data)
+        log.info('fromSAPTX >>> sapTxData DECODED >>> ', sapTxDataDecoded)
+
+        let result
+
+        try {
+            const data = JSON.parse(sapTxDataDecoded)
+            result = new Tx(data)
+        } catch (e) {
+            log.warn('fromSAPTX >>> invalid JSON >>> ', sapTxDataDecoded)
+            result = sapTxDataDecoded
+        }
+
+        return result
     }
 
     getPrevTxIds() {

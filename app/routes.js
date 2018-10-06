@@ -30,9 +30,23 @@ export default {
         })
 
         app.get('/tx', (req, res) => {
-            res.status(200).json({
-                ok: true,
-                result: 'get tx'
+            request.list().then((result) => {
+
+                // log.info('Tx LIST >>> RAW Txs >>> ', result)
+
+                const decodedTxs = result.result.map((it) => {
+                    log.info('Tx LIST ITEM >>> RAW Tx >>> ', it)
+                    return Tx.fromSAPTX(it)
+                })
+
+                log.info('Tx LIST >>> decodedTxs >>> ', decodedTxs)
+
+                res.status(200).json({
+                    ok: true,
+                    decodedTxs
+                })
+            }).catch((err) => {
+                res.status(500).json(err)
             })
         })
     }

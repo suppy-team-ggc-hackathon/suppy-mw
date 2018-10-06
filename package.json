@@ -18,6 +18,7 @@
     "body-parser": "*",
     "cors": "*",
     "express": "*",
+    "hex2ascii": "0.0.3",
     "log4js": "*",
     "moment": "*",
     "request": "^2.88.0",
