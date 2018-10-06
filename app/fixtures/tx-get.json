@@ -1,15 +1,13 @@
 {
   "date": "2018-10-06T11:27:24.847Z",
-  "prev_tx_ids": ["1234qwe", "34345fgfg"],
   "location": {
     "lat": 42.42,
     "lng": 53.55
   },
-  "supplier_id": "rwer4r456",
-  "supplier_type": "DRIVER",
+  "supplier_id": "joe-the-driver",
   "product_data": {
-    "type": "MINERAL",
-    "title": "bottle of water",
+    "type": "BANANA",
+    "title": "bunch of bananas",
     "img": "http://fgdfgdfg.com/fgfg.png"
   },
   "co2": 42.43

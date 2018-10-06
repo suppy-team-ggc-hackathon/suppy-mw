@@ -1,0 +1,12 @@
+{
+  "date": "2018-10-06T11:27:24.847Z",
+  "location": {
+    "lat": 42.42,
+    "lng": 53.55
+  },
+  "supplier_id": "joe-the-driver",
+  "product_data": {
+    "title": "bunch of bananas"
+  },
+  "co2": 42.43
+}
