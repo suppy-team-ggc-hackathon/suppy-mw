@@ -65,6 +65,22 @@ export default {
                 res.status(500).json(err)
             })
         })
+
+        app.get('/end-product', (req, res) => {
+            request.list().then((result) => {
+
+                const decodedTxs = result.result.map((it) => Tx.fromSAPTX(it))
+                const endProduct = decodedTxs.find((it) => it.getPrevTxIds().length > 1)
+
+                res.status(200).json({
+                    ok: true,
+                    result: endProduct.toJson()
+                })
+            }).catch((err) => {
+                log.error('END_PRODUCT >>> ', err)
+                res.status(500).json(err)
+            })
+        })
     }
 
 }

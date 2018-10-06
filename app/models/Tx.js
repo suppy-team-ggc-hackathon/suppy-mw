@@ -54,7 +54,7 @@ export default class Tx {
     }
 
     getPrevTxIds() {
-        return this._data.prev_tx_ids
+        return this._data.prev_tx_ids ? this._data.prev_tx_ids : []
     }
 
     getDate() {
