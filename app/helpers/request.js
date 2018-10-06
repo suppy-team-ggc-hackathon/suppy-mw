@@ -8,11 +8,11 @@ log.level = config.log_level
 
 const toHex = (data) => Buffer.from(JSON.stringify(data), 'utf8').toString('hex')
 
-const buildSapDataToPOST = (data) => ({
+const buildSapDataToPOST = (txKey, data) => ({
     "method": "publish",
     "params": [
         config.sap_api.stream,
-        uuid(), // tx key
+        txKey,
         toHex(data)
     ]
 })
@@ -38,7 +38,8 @@ const buildSapDataToRetrieveByKey = (sapKey) => ({
 export default {
     post: (data) => {
 
-        const sapData = buildSapDataToPOST(data)
+        const txKey = uuid()
+        const sapData = buildSapDataToPOST(txKey, data)
 
         return new Promise(function(resolve, reject) {
             request({
@@ -54,7 +55,7 @@ export default {
                     reject(err)
                 } else {
                     log.debug('POST sapData RESPONSE SUCCESS >>> ', data)
-                    resolve(data)
+                    resolve(txKey)
                 }
             })
         })
