@@ -2,6 +2,7 @@ import log4js from 'log4js'
 import _ from 'lodash'
 import Tx from './models/Tx'
 import request from './helpers/request'
+import geoHelper from './helpers/geo-helper'
 import config from './../config'
 
 var NodeGeocoder = require('node-geocoder');
@@ -152,7 +153,7 @@ export default {
                             result: Object.assign(
                                 {},
                                 found.toJson(),
-                                {originAddress: `${address.city}, ${address.stateCode}`}
+                                {originAddress: geoHelper.findClosestAddress(address)}
                             )
                         })
                     }
