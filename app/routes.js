@@ -138,7 +138,7 @@ export default {
                 let found = txs.find((tx) => tx.getSapKey() === id)
 
                 if (!found) {
-                    res.status(404).json("Not found sapKey >>> ", id)
+                    res.status(404).json(`Not found sapKey >>> ${id}`)
                     return
                 }
                 
@@ -185,7 +185,7 @@ export default {
                   });
 
                 if (!found) {
-                    res.status(404).json("Not found sapKey >>> ", id)
+                    res.status(404).json(`Not found sapKey >>> ${id}`)
                     return
                 }
 
