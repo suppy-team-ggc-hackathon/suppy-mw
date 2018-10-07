@@ -112,12 +112,8 @@ export default {
         })
     },
 
-    find_by_id: (sapKey,txs) => {
-
-        var found = txs.find(function(element) {
-            return element.getSapKey() == sapKey
-          });
-        return found
+    find_by_id: (sapKey, txs) => {
+        return txs.find((tx) => tx.getSapKey() === sapKey)
     },
 
     iterate: (current, depth, txs) => {

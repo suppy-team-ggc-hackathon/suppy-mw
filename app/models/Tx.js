@@ -64,7 +64,7 @@ export default class Tx {
     getLocation() {
         return {
             lat: this._data.location ? this._data.location.lat : null,
-            lng: this._data.location ? this._data.location.lng : null
+            lon: this._data.location ? this._data.location.lon : null
         }
     }
 

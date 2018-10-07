@@ -122,48 +122,46 @@ export default {
         app.get('/origin-and-location/:id', (req, res) => {
             request.list().then((result) => {
 
-                var id = req.params.id.toString()
+                const id = req.params.id.toString()
                 let txs = result.result.map((it) => Tx.fromSAPTX(it))
 
                 //STEP 1 : check if found works
-                var found = txs.find(function(element) {
-                    return element.getSapKey() == id
-                  });
+                let found = txs.find((tx) => tx.getSapKey() === id)
+
+                if (!found) {
+                    res.status(404).json("Not found sapKey >>> ", id)
+                    return
+                }
                 
-                //STEP 2: Check if traversel work
+                //STEP 2: traversing to the very origin
                 log.info('found prevTxIds >>>', found.getPrevTxIds())
-                while (found.getPrevTxIds().length > 0){
-                    found = request.find_by_id(found.getPrevTxIds(), txs)
+                while (found.getPrevTxIds().length > 0) {
+                    found = request.find_by_id(found.getPrevTxIds()[0], txs)
                 }
 
+                log.info("GEOCODING >>> location >>> ", found.getLocation())
+
                 //STEP 3: calculate origin geocoder
+                geocoder.reverse(found.getLocation(), function(err, geoRes) {
+                    log.info("GEOCODING >>> RAW >>> ", geoRes)
+                    const address = geoRes && geoRes.length ? geoRes[0] : {}
+                    log.info("GEOCODING >>> address >>> ", address)
 
-                var ubiquation 
-                
-                geocoder.reverse({lat:45.767, lon:4.833}, function(err, res) {
-                    ubiquation = res
-                    log.info(ubiquation)
-                  });
+                    if (err) {
+                        log.error('GEOCODING >>> ', err)
+                        res.status(500).json(err)
+                    } else {
+                        res.status(200).json({
+                            ok: true,
+                            name: found.getProductName(),
+                            date: found.getDate(),
+                            originAddress: `${address.city}, ${address.stateCode}`
+                        })
+                    }
+                });
 
-                /*geocoder.reverse({lat:45.767, lon:4.833})
-                  .then(function(res) {
-                    log.info(res)
-                    ubiquation = res
-                  })
-                  .catch(function(err) {
-                    log.error(err)
-                  });*/
-                
-                  log.info('ubiquation after reverse func >>>', ubiquation)
-                  // ubiquation undefined cuz it was set only in a function
-                res.status(200).json({
-                    ok: true,
-                    name: found.getProductName(),
-                    date: found.getDate(),
-                    //ubiquation: ubiquation["city"]
-                })
             }).catch((err) => {
-                log.error('LIST >>> ', err)
+                log.error('GET origin-and-location >>> ', err)
                 res.status(500).json(err)
             })
 
