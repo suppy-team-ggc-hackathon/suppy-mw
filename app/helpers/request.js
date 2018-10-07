@@ -12,7 +12,7 @@ const toHex = (data) => Buffer.from(JSON.stringify(data), 'utf8').toString('hex'
 const buildSapDataToPOST = (txKey, data) => ({
     "method": "publish",
     "params": [
-        config.sap_api.stream,
+        "suppy_test1",
         txKey,
         toHex(data)
     ]

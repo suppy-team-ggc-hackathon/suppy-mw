@@ -1,4 +1,6 @@
 export default {
-    DRIVER,
-    MANUFACTURER
+    GATHERER,
+    PACKAGER,
+    SHIPPING,
+    RETAIL
 }
