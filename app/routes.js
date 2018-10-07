@@ -85,9 +85,17 @@ export default {
                 const decodedTxs = result.result.map((it) => Tx.fromSAPTX(it))
                 const endProduct = decodedTxs.find((it) => it.getPrevTxIds().length > 1)
 
+                let co2 = 0
+
+                endProduct.getPrevTxIds().forEach((txId) => {
+                    const parentTx = decodedTxs.find((tx) => tx.getSapKey() === txId)
+                    if (parentTx) co2 += parentTx.getCO2()
+                })
+
                 res.status(200).json({
                     ok: true,
-                    result: endProduct.toJson()
+                    result: endProduct.toJson(),
+                    co2Total: co2
                 })
             }).catch((err) => {
                 log.error('END_PRODUCT >>> ', err)
