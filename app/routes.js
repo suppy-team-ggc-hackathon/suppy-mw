@@ -179,11 +179,16 @@ export default {
         
                 var id = req.params.id.toString()
                 let txs = result.result.map((it) => Tx.fromSAPTX(it))
-        
+
                 var found = txs.find(function(element) {
                     return element.getSapKey() == id
                   });
-                
+
+                if (!found) {
+                    res.status(404).json("Not found sapKey >>> ", id)
+                    return
+                }
+
                 log.info('found prevTxIds >>>', found.getPrevTxIds())
                 var supplychain = []
                 var co2 = 0
