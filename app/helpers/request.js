@@ -2,6 +2,7 @@ import request from 'request'
 import log4js from 'log4js'
 import config from './../../config'
 import uuid from 'uuid/v1'
+import Tx from '../models/Tx'
 
 const log = log4js.getLogger('request')
 log.level = config.log_level
@@ -110,6 +111,26 @@ export default {
             })
         })
     },
+
+    find_by_id: (sapKey,txs) => {
+
+        var found = txs.find(function(element) {
+            return element.getSapKey() == sapKey
+          });
+        return found
+    },
+
+    iterate: (current, depth, txs) => {
+        var children = current.getPrevTxIds();
+        var tree = []
+        log.info("we entered iterate")
+        for (var i = 0, len = children.length; i < len; i++) {
+            iterate(find_by_id(children[i],txs), depth + 1);
+            tree.push(current)
+        }
+        return tree
+    }
+   
 
 
 }

@@ -80,6 +80,10 @@ export default class Tx {
         return this._data.product_data
     }
 
+    getProductName() {
+        return this._data.product_data.title
+    }
+
     getCO2() {
         return this._data.co2
     }

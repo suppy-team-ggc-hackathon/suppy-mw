@@ -4,6 +4,18 @@ import Tx from './models/Tx'
 import request from './helpers/request'
 import config from './../config'
 
+var NodeGeocoder = require('node-geocoder');
+
+var options = {
+  provider: 'mapquest',
+
+  // Optionnal depending of the providers
+  apiKey: "iNAZfAMXpufnTapwIwA56yBJsVjRB7Zz",
+  httpAdapter: 'https' // Default
+};
+
+var geocoder = NodeGeocoder(options);
+
 export default {
     configure: function (app) {
 
@@ -82,16 +94,17 @@ export default {
             })
         })
 
-        app.get('/end-product-by-id', (req, res) => {
+        app.get('/end-product-by-id/:id', (req, res) => {
             request.get_by_key(req.params.id.toString()).then((result) => {
 
                 const decodedTxs = result.result.map((it) => {
-                    return Tx.fromSAPTX(it).toJson()
+                    return Tx.fromSAPTX(it)
                 })[0]
 
                 log.info(decodedTxs.getPrevTxIds())
 
                 var prevTxIds = decodedTxs.getPrevTxIds()
+                log.info(prevTxIds)
 
                 res.status(200).json({
                     ok: true,
@@ -104,20 +117,50 @@ export default {
 
         })
 
-        app.get('/origin-and-location', (req, res) => {
-            request.get_by_key(req.params.id.toString()).then((result) => {
+        //TEST for if ubiquation now isnt undefined anymore
 
-                const decodedTxs = result.result.map((it) => {
-                    return Tx.fromSAPTX(it).toJson()
-                })[0]
+        app.get('/origin-and-location/:id', (req, res) => {
+            request.list().then((result) => {
 
-                log.info(decodedTxs.getPrevTxIds())
+                var id = req.params.id.toString()
+                let txs = result.result.map((it) => Tx.fromSAPTX(it))
 
-                var prevTxIds = decodedTxs.getPrevTxIds()
+                //STEP 1 : check if found works
+                var found = txs.find(function(element) {
+                    return element.getSapKey() == id
+                  });
+                
+                //STEP 2: Check if traversel work
+                log.info('found prevTxIds >>>', found.getPrevTxIds())
+                while (found.getPrevTxIds().length > 0){
+                    found = request.find_by_id(found.getPrevTxIds(), txs)
+                }
 
+                //STEP 3: calculate origin geocoder
+
+                var ubiquation 
+                
+                geocoder.reverse({lat:45.767, lon:4.833}, function(err, res) {
+                    ubiquation = res
+                    log.info(ubiquation)
+                  });
+
+                /*geocoder.reverse({lat:45.767, lon:4.833})
+                  .then(function(res) {
+                    log.info(res)
+                    ubiquation = res
+                  })
+                  .catch(function(err) {
+                    log.error(err)
+                  });*/
+                
+                  log.info('ubiquation after reverse func >>>', ubiquation)
+                  // ubiquation undefined cuz it was set only in a function
                 res.status(200).json({
                     ok: true,
-                    result: prevTxIds
+                    name: found.getProductName(),
+                    date: found.getDate(),
+                    //ubiquation: ubiquation["city"]
                 })
             }).catch((err) => {
                 log.error('LIST >>> ', err)
@@ -125,6 +168,104 @@ export default {
             })
 
         })
+
+        app.get('/supply-chain/:id', (req, res) => {
+            request.list().then((result) => {
+
+                var id = req.params.id.toString()
+                let txs = result.result.map((it) => Tx.fromSAPTX(it))
+
+                var found = txs.find(function(element) {
+                    return element.getSapKey() == id
+                  });
+                
+                log.info('found prevTxIds >>>', found.getPrevTxIds())
+                var supplychain = []
+
+                while (found.getPrevTxIds().length > 0){
+                    supplychain.push(found) //Jsonfiying needed?
+                    found = request.find_by_id(found.getPrevTxIds(), txs)
+                }
+
+                supplychain.push(found)
+
+                res.status(200).json({
+                    ok: true,
+                    supplychain: supplychain //.toJSON() needed?
+                })
+            }).catch((err) => {
+                log.error('LIST >>> ', err)
+                res.status(500).json(err)
+            })
+        })
+
+            // Just generally test
+        app.get('/whole-tree-co2/:id', (req, res) => {
+            request.list().then((result) => {
+
+                var id = req.params.id.toString()
+                let txs = result.result.map((it) => Tx.fromSAPTX(it))
+
+                var found = txs.find(function(element) {
+                    return element.getSapKey() == id
+                    });
+                
+                log.info('found prevTxIds >>>', found.getPrevTxIds())
+                    
+                var tree = []
+                var co2 = []
+
+                /*while (found.getPrevTxIds().length > 0){ 
+                    for( var prev_key in found.getPrevTxIds()) {
+                        tree.push(found)
+                        co2 += found.getCO2()
+                        found = request.find_by_id(found.getPrevTxIds(), txs) 
+                    }
+                }*/
+                tree = request.iterate(found, 0,txs);
+
+                res.status(200).json({
+                    ok: true,
+                    tree: tree,
+                    co2: co2 //.toJSON() needed?
+                })
+            }).catch((err) => {
+                log.error('LIST >>> ', err)
+                res.status(500).json(err)
+            })
+        })
+
+        app.get('/co2-emission/:id', (req, res) => {
+            request.list().then((result) => {
+
+                var id = req.params.id.toString()
+                let txs = result.result.map((it) => Tx.fromSAPTX(it))
+
+                var found = txs.find(function(element) {
+                    return element.getSapKey() == id
+                    });
+                
+                log.info('found prevTxIds >>>', found.getPrevTxIds())
+                var supplychain 
+
+                /*while (found.getPrevTxIds().length > 0){
+                    supplychain.push(found) //Jsonfiying needed?
+                    found = request.find_by_id(found.getPrevTxIds(), txs)
+                }*/
+
+                supplychain = request.iterate(found, 0);
+
+                res.status(200).json({
+                    ok: true,
+                    supplychain: supplychain //.toJSON() needed?
+                })
+            }).catch((err) => {
+                log.error('LIST >>> ', err)
+                res.status(500).json(err)
+            })
+
+        })
+
 
 
     }
