@@ -174,36 +174,6 @@ export default {
 
         })
 
-        app.get('/supply-chain/:id', (req, res) => {
-            request.list().then((result) => {
-
-                var id = req.params.id.toString()
-                let txs = result.result.map((it) => Tx.fromSAPTX(it))
-
-                var found = txs.find(function(element) {
-                    return element.getSapKey() == id
-                  });
-                
-                log.info('found prevTxIds >>>', found.getPrevTxIds())
-                var supplychain = []
-
-                while (found.getPrevTxIds().length > 0){
-                    supplychain.push(found) //Jsonfiying needed?
-                    found = request.find_by_id(found.getPrevTxIds(), txs)
-                }
-
-                supplychain.push(found)
-
-                res.status(200).json({
-                    ok: true,
-                    supplychain: supplychain //.toJSON() needed?
-                })
-            }).catch((err) => {
-                log.error('LIST >>> ', err)
-                res.status(500).json(err)
-            })
-        })
-
             // Just generally test
         app.get('/whole-tree-co2/:id', (req, res) => {
             request.list().then((result) => {
@@ -269,6 +239,39 @@ export default {
                 res.status(500).json(err)
             })
 
+        })
+
+        app.get('/supply-chain/:id', (req, res) => {
+            request.list().then((result) => {
+        
+                var id = req.params.id.toString()
+                let txs = result.result.map((it) => Tx.fromSAPTX(it))
+        
+                var found = txs.find(function(element) {
+                    return element.getSapKey() == id
+                  });
+                
+                log.info('found prevTxIds >>>', found.getPrevTxIds())
+                var supplychain = []
+                var co2 = 0
+        
+                while (found.getPrevTxIds().length > 0){
+                    co2 += found.getCO2()
+                    supplychain.push(found) 
+                    found = request.find_by_id(found.getPrevTxIds()[0], txs)
+                }
+                co2 += found.getCO2()
+                supplychain.push(found)
+        
+                res.status(200).json({
+                    ok: true,
+                    supplychain: supplychain,
+                    co2: co2
+                })
+            }).catch((err) => {
+                log.error('LIST >>> ', err)
+                res.status(500).json(err)
+            })
         })
 
 
