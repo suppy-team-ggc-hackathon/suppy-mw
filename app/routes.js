@@ -134,18 +134,14 @@ export default {
                 }
                 
                 //STEP 2: traversing to the very origin
-                log.info('found prevTxIds >>>', found.getPrevTxIds())
                 while (found.getPrevTxIds().length > 0) {
                     found = request.find_by_id(found.getPrevTxIds()[0], txs)
                 }
-
-                log.info("GEOCODING >>> location >>> ", found.getLocation())
 
                 //STEP 3: calculate origin geocoder
                 geocoder.reverse(found.getLocation(), function(err, geoRes) {
                     log.info("GEOCODING >>> RAW >>> ", geoRes)
                     const address = geoRes && geoRes.length ? geoRes[0] : {}
-                    log.info("GEOCODING >>> address >>> ", address)
 
                     if (err) {
                         log.error('GEOCODING >>> ', err)
@@ -153,9 +149,11 @@ export default {
                     } else {
                         res.status(200).json({
                             ok: true,
-                            name: found.getProductName(),
-                            date: found.getDate(),
-                            originAddress: `${address.city}, ${address.stateCode}`
+                            result: Object.assign(
+                                {},
+                                found.toJson(),
+                                {originAddress: `${address.city}, ${address.stateCode}`}
+                            )
                         })
                     }
                 });

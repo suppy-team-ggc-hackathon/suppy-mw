@@ -10,6 +10,7 @@ export default class Tx {
 
     constructor(data = {}) {
         this._data = data
+        if (!data.date) this._data.date = (new Date()).toISOString()
         this._data.product_data = new Product(data.product_data).toJson()
     }
 
