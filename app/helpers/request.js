@@ -2,7 +2,6 @@ import request from 'request'
 import log4js from 'log4js'
 import config from './../../config'
 import uuid from 'uuid/v1'
-import Tx from '../models/Tx'
 
 const log = log4js.getLogger('request')
 log.level = config.log_level

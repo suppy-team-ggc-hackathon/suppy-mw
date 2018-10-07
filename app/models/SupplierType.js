@@ -1,7 +1,6 @@
 export default {
-    PRODUCER,
-    GATHERER,
-    PACKAGER,
-    SHIPPING,
+    PRODUCTION,
+    STORAGE,
+    TRANSPORT,
     RETAIL
 }
