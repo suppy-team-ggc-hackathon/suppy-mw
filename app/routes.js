@@ -174,73 +174,6 @@ export default {
 
         })
 
-            // Just generally test
-        app.get('/whole-tree-co2/:id', (req, res) => {
-            request.list().then((result) => {
-
-                var id = req.params.id.toString()
-                let txs = result.result.map((it) => Tx.fromSAPTX(it))
-
-                var found = txs.find(function(element) {
-                    return element.getSapKey() == id
-                    });
-                
-                log.info('found prevTxIds >>>', found.getPrevTxIds())
-                    
-                var tree = []
-                var co2 = []
-
-                /*while (found.getPrevTxIds().length > 0){ 
-                    for( var prev_key in found.getPrevTxIds()) {
-                        tree.push(found)
-                        co2 += found.getCO2()
-                        found = request.find_by_id(found.getPrevTxIds(), txs) 
-                    }
-                }*/
-                tree = request.iterate(found, 0,txs);
-
-                res.status(200).json({
-                    ok: true,
-                    tree: tree,
-                    co2: co2 //.toJSON() needed?
-                })
-            }).catch((err) => {
-                log.error('LIST >>> ', err)
-                res.status(500).json(err)
-            })
-        })
-
-        app.get('/co2-emission/:id', (req, res) => {
-            request.list().then((result) => {
-
-                var id = req.params.id.toString()
-                let txs = result.result.map((it) => Tx.fromSAPTX(it))
-
-                var found = txs.find(function(element) {
-                    return element.getSapKey() == id
-                    });
-                
-                log.info('found prevTxIds >>>', found.getPrevTxIds())
-                var supplychain 
-
-                /*while (found.getPrevTxIds().length > 0){
-                    supplychain.push(found) //Jsonfiying needed?
-                    found = request.find_by_id(found.getPrevTxIds(), txs)
-                }*/
-
-                supplychain = request.iterate(found, 0);
-
-                res.status(200).json({
-                    ok: true,
-                    supplychain: supplychain //.toJSON() needed?
-                })
-            }).catch((err) => {
-                log.error('LIST >>> ', err)
-                res.status(500).json(err)
-            })
-
-        })
-
         app.get('/supply-chain/:id', (req, res) => {
             request.list().then((result) => {
         
@@ -266,7 +199,7 @@ export default {
                 res.status(200).json({
                     ok: true,
                     supplychain: supplychain,
-                    co2: co2
+                    co2Total: co2
                 })
             }).catch((err) => {
                 log.error('LIST >>> ', err)
