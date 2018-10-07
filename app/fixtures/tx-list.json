@@ -1,149 +1,192 @@
 {
   "ok": true,
-  "result": [{
-    "date": "2018-09-22T11:27:24.847Z",
-    "location": {
-      "lat": 28.4398695,
-      "lon": -16.9744748
+  "result": [
+    {
+      "date": "2018-09-22T10:27:24.847Z",
+      "location": {
+        "lat": 28.5416315,
+        "lon": -16.2522191
+      },
+      "prev_tx_ids": [],
+      "supplier_id": "juan-the-gatherer",
+      "supplier_type": "PRODUCTION",
+      "product_data": {
+        "title": "bananas were gathered from trees",
+        "type": "BANANA",
+        "img": "https://drive.google.com/file/d/1-08P5w6U66m8iUs6MPNTnUAfARlGYYGS/view"
+      },
+      "co2": 10,
+      "sapKey": "3d544220-ca1b-11e8-9b74-65e24f511117"
     },
-    "prev_tx_ids": [],
-    "supplier_id": "joe-the-banana-gatherer",
-    "supplier_type": "PRODUCER",
-    "product_data": {
-      "title": "bananas were gathered from the trees",
-      "type": "BANANA",
-      "img": "https://drive.google.com/file/d/1-08P5w6U66m8iUs6MPNTnUAfARlGYYGS/view"
+    {
+      "date": "2018-09-22T10:27:24.847Z",
+      "location": {
+        "lat": 10.3794242,
+        "lon": -9.340069
+      },
+      "prev_tx_ids": [],
+      "supplier_id": "sawani-the-gatherer",
+      "supplier_type": "PRODUCTION",
+      "product_data": {
+        "title": "pineapples were harvested",
+        "type": "PINEAPPLE",
+        "img": "https://drive.google.com/file/d/1uulXPgdNtYCDbBdVDwVWBGfCXbFsciQi/view"
+      },
+      "co2": 10,
+      "sapKey": "87729a90-ca1c-11e8-9b74-65e24f511117"
     },
-    "co2": 0,
-    "sapKey": "901d58d0-ca10-11e8-93ea-f337b73b8d6b"
-  }, {
-    "date": "2018-09-22T11:27:24.847Z",
-    "location": {
-      "lat": 10.3794242,
-      "lon": -9.340069
+    {
+      "date": "2018-09-22T10:27:24.847Z",
+      "location": {
+        "lat": 44.4468921,
+        "lon": 8.7507492
+      },
+      "prev_tx_ids": [],
+      "supplier_id": "grazia-the-gatherer",
+      "supplier_type": "PRODUCTION",
+      "product_data": {
+        "title": "kiwis were gathered from trees",
+        "type": "KIWI",
+        "img": "https://drive.google.com/file/d/1eGcDhJ9Rv1PZoHZ6mlJ65cGsUpGPvUXo/view"
+      },
+      "co2": 10,
+      "sapKey": "53439340-ca1d-11e8-9b74-65e24f511117"
     },
-    "prev_tx_ids": [],
-    "supplier_id": "patrick-the-gatherer",
-    "supplier_type": "GATHERER",
-    "product_data": {
-      "title": "pineapples were gathered",
-      "type": "PINEAPPLE",
-      "img": "https://drive.google.com/file/d/1uulXPgdNtYCDbBdVDwVWBGfCXbFsciQi/view"
+    {
+      "date": "2018-09-23T10:27:24.847Z",
+      "location": {
+        "lat": 28.5416315,
+        "lon": -16.2522191
+      },
+      "prev_tx_ids": [
+        "3d544220-ca1b-11e8-9b74-65e24f511117"
+      ],
+      "supplier_id": "marco-the-packager",
+      "supplier_type": "STORAGE",
+      "product_data": {
+        "title": "bananas were packaged in crates",
+        "type": "BANANA",
+        "img": "https://drive.google.com/file/d/1-08P5w6U66m8iUs6MPNTnUAfARlGYYGS/view"
+      },
+      "co2": 10,
+      "sapKey": "76c09360-ca1b-11e8-9b74-65e24f511117"
     },
-    "co2": 4,
-    "sapKey": "4aaed000-ca13-11e8-93ea-f337b73b8d6b"
-  }, {
-    "date": "2018-09-24T11:27:24.847Z",
-    "location": {
-      "lat": 10.3794242,
-      "lon": -9.340069
+    {
+      "date": "2018-09-23T10:27:24.847Z",
+      "location": {
+        "lat": 10.3794242,
+        "lon": -9.340069
+      },
+      "prev_tx_ids": [
+        "87729a90-ca1c-11e8-9b74-65e24f511117"
+      ],
+      "supplier_id": "alice-the-packager",
+      "supplier_type": "STORAGE",
+      "product_data": {
+        "title": "pineapples were packaged in crates",
+        "type": "PINEAPPLE",
+        "img": "https://drive.google.com/file/d/1uulXPgdNtYCDbBdVDwVWBGfCXbFsciQi/view"
+      },
+      "co2": 20,
+      "sapKey": "a6af1ff0-ca1c-11e8-9b74-65e24f511117"
     },
-    "prev_tx_ids": ["4aaed000-ca13-11e8-93ea-f337b73b8d6b"],
-    "supplier_id": "danny-the-packager",
-    "supplier_type": "PACKAGER",
-    "product_data": {
-      "title": "pineapples were packaged in crates",
-      "type": "PINEAPPLE",
-      "img": "https://drive.google.com/file/d/1uulXPgdNtYCDbBdVDwVWBGfCXbFsciQi/view"
+    {
+      "date": "2018-09-23T10:27:24.847Z",
+      "location": {
+        "lat": 44.4468921,
+        "lon": 8.7507492
+      },
+      "prev_tx_ids": [
+        "53439340-ca1d-11e8-9b74-65e24f511117"
+      ],
+      "supplier_id": "beatrice-the-packager",
+      "supplier_type": "STORAGE",
+      "product_data": {
+        "title": "kiwis were packaged in crates",
+        "type": "KIWI",
+        "img": "https://drive.google.com/file/d/1eGcDhJ9Rv1PZoHZ6mlJ65cGsUpGPvUXo/view"
+      },
+      "co2": 20,
+      "sapKey": "751ae7c0-ca1d-11e8-9b74-65e24f511117"
     },
-    "co2": 12,
-    "sapKey": "691edda0-ca13-11e8-93ea-f337b73b8d6b"
-  }, {
-    "date": "2018-09-24T12:27:24.847Z",
-    "location": {
-      "lat": 28.4398695,
-      "lon": -16.9744748
+    {
+      "date": "2018-09-28T10:27:24.847Z",
+      "location": {
+        "lat": 53.5584902,
+        "lon": 9.7877399
+      },
+      "prev_tx_ids": [
+        "76c09360-ca1b-11e8-9b74-65e24f511117"
+      ],
+      "supplier_id": "john-the-sailorman",
+      "supplier_type": "TRANSPORT",
+      "product_data": {
+        "title": "bananas were shipped to Germany",
+        "type": "BANANA",
+        "img": "https://drive.google.com/file/d/1-08P5w6U66m8iUs6MPNTnUAfARlGYYGS/view"
+      },
+      "co2": 200,
+      "sapKey": "d4be01f0-ca1b-11e8-9b74-65e24f511117"
     },
-    "prev_tx_ids": ["901d58d0-ca10-11e8-93ea-f337b73b8d6b"],
-    "supplier_id": "alice-the-banana-packager",
-    "supplier_type": "PACKAGER",
-    "product_data": {
-      "title": "bananas were packaged in fancy crates",
-      "type": "BANANA",
-      "img": "https://drive.google.com/file/d/1-08P5w6U66m8iUs6MPNTnUAfARlGYYGS/view"
+    {
+      "date": "2018-09-28T10:27:24.847Z",
+      "location": {
+        "lat": 52.5065133,
+        "lon": 13.1445565
+      },
+      "prev_tx_ids": [
+        "a6af1ff0-ca1c-11e8-9b74-65e24f511117"
+      ],
+      "supplier_id": "bob-the-airplane-pilot",
+      "supplier_type": "TRANSPORT",
+      "product_data": {
+        "title": "pineapples were shipped to Germany",
+        "type": "PINEAPPLE",
+        "img": "https://drive.google.com/file/d/1uulXPgdNtYCDbBdVDwVWBGfCXbFsciQi/view"
+      },
+      "co2": 300,
+      "sapKey": "f0561af0-ca1c-11e8-9b74-65e24f511117"
     },
-    "co2": 10,
-    "sapKey": "54612eb0-ca11-11e8-93ea-f337b73b8d6b"
-  }, {
-    "date": "2018-09-27T16:27:24.847Z",
-    "location": {
-      "lat": 43.3541444,
-      "lon": 9.9657292
+    {
+      "date": "2018-09-29T10:27:24.847Z",
+      "location": {
+        "lat": 52.5065133,
+        "lon": 13.1445565
+      },
+      "prev_tx_ids": [
+        "751ae7c0-ca1d-11e8-9b74-65e24f511117"
+      ],
+      "supplier_id": "lucas-the-driver",
+      "supplier_type": "TRANSPORT",
+      "product_data": {
+        "title": "kiwis were shipped to Germany",
+        "type": "KIWI",
+        "img": "https://drive.google.com/file/d/1eGcDhJ9Rv1PZoHZ6mlJ65cGsUpGPvUXo/view"
+      },
+      "co2": 250,
+      "sapKey": "abcaff30-ca1d-11e8-9b74-65e24f511117"
     },
-    "prev_tx_ids": ["ceaa6b50-ca11-11e8-93ea-f337b73b8d6b"],
-    "supplier_id": "marco-the-packager",
-    "supplier_type": "PACKAGER",
-    "product_data": {
-      "title": "kiwis were packaged in crates",
-      "type": "KIWI",
-      "img": "https://drive.google.com/file/d/1eGcDhJ9Rv1PZoHZ6mlJ65cGsUpGPvUXo/view"
-    },
-    "co2": 10,
-    "sapKey": "6d2ae570-ca12-11e8-93ea-f337b73b8d6b"
-  }, {
-    "date": "2018-09-29T13:27:24.847Z",
-    "location": {
-      "lat": 52.5065133,
-      "lon": 13.1445565
-    },
-    "prev_tx_ids": ["691edda0-ca13-11e8-93ea-f337b73b8d6b"],
-    "supplier_id": "mario-the-airplane-pilot",
-    "supplier_type": "SHIPPING",
-    "product_data": {
-      "title": "pineapples were shipped to Germany",
-      "type": "PINEAPPLE",
-      "img": "https://drive.google.com/file/d/1uulXPgdNtYCDbBdVDwVWBGfCXbFsciQi/view"
-    },
-    "co2": 240,
-    "sapKey": "a370ace0-ca13-11e8-93ea-f337b73b8d6b"
-  }, {
-    "date": "2018-09-29T14:27:24.847Z",
-    "location": {
-      "lat": 52.5065133,
-      "lon": 13.1445565
-    },
-    "prev_tx_ids": ["54612eb0-ca11-11e8-93ea-f337b73b8d6b"],
-    "supplier_id": "david-the-sailorman",
-    "supplier_type": "SHIPPING",
-    "product_data": {
-      "title": "bananas were shipped to Germany",
-      "type": "BANANA",
-      "img": "https://drive.google.com/file/d/1-08P5w6U66m8iUs6MPNTnUAfARlGYYGS/view"
-    },
-    "co2": 120,
-    "sapKey": "ceaa6b50-ca11-11e8-93ea-f337b73b8d6b"
-  }, {
-    "date": "2018-10-02T17:27:24.847Z",
-    "location": {
-      "lat": 52.5065133,
-      "lon": 13.1445565
-    },
-    "prev_tx_ids": ["6d2ae570-ca12-11e8-93ea-f337b73b8d6b"],
-    "supplier_id": "joe-the-driver",
-    "supplier_type": "SHIPPING",
-    "product_data": {
-      "title": "kiwis were shipped to Germany",
-      "type": "KIWI",
-      "img": "https://drive.google.com/file/d/1eGcDhJ9Rv1PZoHZ6mlJ65cGsUpGPvUXo/view"
-    },
-    "co2": 140,
-    "sapKey": "a273a4b0-ca12-11e8-93ea-f337b73b8d6b"
-  }, {
-    "date": "2018-10-07T15:27:24.847Z",
-    "location": {
-      "lat": 52.529725,
-      "lon": 13.3493899
-    },
-    "prev_tx_ids": ["a273a4b0-ca12-11e8-93ea-f337b73b8d6b", "ceaa6b50-ca11-11e8-93ea-f337b73b8d6b", "a370ace0-ca13-11e8-93ea-f337b73b8d6b"],
-    "supplier_id": "marie-the-verkauferin",
-    "supplier_type": "RETAIL",
-    "product_data": {
-      "title": "smoothie made from bananas, kiwis and pineapples was sold",
-      "type": "BANANA",
-      "img": "https://drive.google.com/file/d/1-08P5w6U66m8iUs6MPNTnUAfARlGYYGS/view"
-    },
-    "co2": 20,
-    "sapKey": "df26ee20-ca13-11e8-93ea-f337b73b8d6b"
-  }],
-  "length": 9
+    {
+      "date": "2018-10-07T15:12:24.847Z",
+      "location": {
+        "lat": 52.529725,
+        "lon": 13.3493899
+      },
+      "prev_tx_ids": [
+        "d4be01f0-ca1b-11e8-9b74-65e24f511117",
+        "f0561af0-ca1c-11e8-9b74-65e24f511117",
+        "abcaff30-ca1d-11e8-9b74-65e24f511117"
+      ],
+      "supplier_id": "marie-the-verkauferin",
+      "supplier_type": "RETAIL",
+      "product_data": {
+        "title": "Smoothie made from bananas, pineapples and kiwis was sold",
+        "type": "BANANA",
+        "img": "https://drive.google.com/file/d/1-08P5w6U66m8iUs6MPNTnUAfARlGYYGS/view"
+      },
+      "co2": 20,
+      "sapKey": "0d1527c0-ca1e-11e8-9b74-65e24f511117"
+    }
+  ],
+  "length": 10
 }
